@@ -12,6 +12,22 @@ BOT_NAME = "spider"
 SPIDER_MODULES = ["spider.spiders"]
 NEWSPIDER_MODULE = "spider.spiders"
 
+# 启用 Splash
+SPLASH_URL = 'http://localhost:8050'
+
+# 启用 Scrapy-Splash 中间件
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
+
+# 配置 Splash 相关设置
+SPLASH_COOKIES_DEBUG = True  # 是否开启 cookies 调试
+DUPEFILTER_CLASS = 'scrapy_splash.dupefilter.SplashAwareDupeFilter'
+
+# 设置下载超时
+DOWNLOAD_TIMEOUT = 15
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "spider (+http://www.yourdomain.com)"
@@ -62,12 +78,13 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
+ITEM_PIPELINES = {
+    # "scrapy.pipelines.images.ImagesPipeline": 1,
 # "spider.pipelines.SpiderPipeline": 305,
 #    "spider.pipelines.PriceConvertPipeline": 301,
 #    "spider.pipelines.MongoDBPipeline": 308,
-# }
-
+}
+# IMAGES_STORE = 'images'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
